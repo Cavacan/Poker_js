@@ -1,21 +1,12 @@
-import { evaluateHand } from './module.js';  // 役判定モジュール
-import { displayCards, displayResult } from './module2.js'; // 表示モジュール
+import { evaluateHand } from './module.js';
+import { displayCards, displayResult } from './module2.js';
 
-// スートとランクを使ったデッキの作成
+// デッキ作成（52枚のカードを連番にする）
 function createDeck() {
-    const suits = ['hearts', 'diamonds', 'clubs', 'spades']; // スート
-    const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']; // ランク
-    const deck = [];
-
-    suits.forEach(suit => {
-        ranks.forEach(rank => {
-            deck.push({ suit, rank }); // 各スートに各ランクのカードを追加
-        });
-    });
-    return deck;
+    return Array.from({ length: 52 }, (_, i) => i + 1);
 }
 
-// デッキをシャッフルする
+// カードをシャッフルする
 function shuffleDeck(deck) {
     for (let i = deck.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -30,10 +21,10 @@ function main() {
     const shuffledDeck = shuffleDeck(deck);
 
     // ボードに5枚、プレイヤーに2枚配る
-    const board = shuffledDeck.slice(0, 5);  // ボードカード
-    const playerHand = shuffledDeck.slice(5, 7);  // プレイヤーの手札
+    const board = shuffledDeck.slice(0, 5);  // 先頭の5枚がボード
+    const playerHand = shuffledDeck.slice(5, 7);  // 次の2枚が手札
 
-    // 7枚のカード（ボード + 手札）a
+    // ボードと手札を合体させた7枚のカード
     const combinedHand = [...board, ...playerHand];
 
     // 役の確認
@@ -44,5 +35,5 @@ function main() {
     displayResult(handRank, bestHand);
 }
 
-// 開始ボタンのイベントリスナーを設定
+// ボタンにイベントリスナーを設定
 document.getElementById('start-btn').addEventListener('click', main);
