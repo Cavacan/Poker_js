@@ -3,29 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ポーカーゲーム</title>
-    <script type="module" src="script.js"></script>
-    <script type="module" src="module.js"></script>
-    <script type="module" src="module2.js"></script>
+    <title>テキサスホールデム ポーカー</title>
+    <!-- CSSファイルを読み込み -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>テキサスホールデム ポーカー</h1>
     
     <div id="board">
         <h2>ボードカード（5枚）</h2>
-        <p id="board-cards">カードが表示されます</p>
+        <div id="board-cards">カードが表示されます</div>
     </div>
 
     <div id="player-hand">
         <h2>プレイヤー手札（2枚）</h2>
-        <p id="hand-cards">カードが表示されます</p>
+        <div id="hand-cards">カードが表示されます</div>
     </div>
 
     <div id="hand-result">
         <h2>役と構成カード</h2>
-        <p id="hand-result-text">役と強いカードが表示されます</p>
+        <div id="hand-result-text">役と強いカードが表示されます</div>
     </div>
 
     <button id="start-btn">開始</button>
+
+    <!-- JavaScriptモジュールを読み込み -->
+    <script type="module" src="script.js"></script>
+    <script type="module" src="module.js"></script>
+    <script type="module" src="module2.js"></script>
 </body>
 </html>
