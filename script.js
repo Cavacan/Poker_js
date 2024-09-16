@@ -1,44 +1,37 @@
 import { evaluateHand } from './module.js';  // 役判定モジュール
 import { displayCards, displayResult } from './module2.js'; // 画像表示モジュール
+import { createDeck, shuffleDeck } from './deckModule.js';
 
-// デッキ作成（52枚のカードを連番で作成）
-function createDeck() {
-    return Array.from({ length: 52 }, (_, i) => i + 1);
-}
+let deck = shuffleDeck(createDeck());
 
-// デッキをシャッフルする
-function shuffleDeck(deck) {
-    for (let i = deck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [deck[i], deck[j]] = [deck[j], deck[i]];
-    }
-    return deck;
-}
-
-// カード番号から画像ファイル名を生成（01.png ～ 52.png）
-function getCardImage(cardNumber) {
-    return `images/${String(cardNumber).padStart(2, '0')}.png`;  // ゼロパディング対応
+function dealCard(count) {
+  return deck.splice(0, count);
 }
 
 // メイン処理
 function main() {
-    const deck = createDeck();
-    const shuffledDeck = shuffleDeck(deck);
+  // ボードにカードを配る前にデッキの残数をチェックし、足りなければ再作成・シャッフル
+  if (deck.length < 20) {
+    console.warn("Not enough cards to deal to the board. Reshuffling...");
+    deck = shuffleDeck(createDeck());  // デッキの再作成とシャッフル
+  }
 
-    // ボードに5枚、プレイヤーに2枚配る
-    const board = shuffledDeck.slice(0, 5);  // ボードカード
-    const playerHand = shuffledDeck.slice(5, 7);  // プレイヤーの手札
+  // ボードに5枚、プレイヤーに2枚配る
+  
+  const board = dealCard(5);  // ボードカード
+  // const board = [13, 35, 37, 20, 9];  // ボードカード
+  const playerHand = dealCard(2);  // プレイヤーの手札
+  // const playerHand = [45, 11];  // プレイヤーの手札
 
-    // 7枚のカード（ボード + 手札）
-    const combinedHand = [...board, ...playerHand];
-    console.log(combinedHand);
+  // 7枚のカード（ボード + 手札）
+  const combinedHand = [...board, ...playerHand];
 
-    // 役の確認
-    const { bestHand, handRank } = evaluateHand(combinedHand);
+  // 役の確認
+  const { bestHand, handRank } = evaluateHand(combinedHand);
 
-    // カードと役を表示
-    displayCards(board, playerHand);
-    displayResult(handRank, bestHand);
+  // カードと役を表示
+  displayCards(board, playerHand);
+  displayResult(handRank, bestHand);
 }
 
 // 開始ボタンのイベントリスナーを設定

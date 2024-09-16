@@ -1,15 +1,9 @@
 // const hands = ["20", "1", "17", "37", "45", "9", "51"];
 // const hands = ["20", "1", "7", "33", "16", "45", "51"];
 
-export function checkThreeOfAKind(hands) {
-  const cardGroups = Array.from({ length: 13 }, () => []);
+export function checkThreeOfAKind(cardGroups) {
   let threeOfAKind = null;
-  let lastCards = null;
-
-  for (let i = 0; i < hands.length; i++) {
-    const cardNum = Number(hands[i]);
-    cardGroups[(cardNum - 1) % 13].push(hands[i]);
-  }
+  let lastCards = [];
 
   if(cardGroups[0].length !== 3 && cardGroups[0].length > 0){
     lastCards = cardGroups[0];
@@ -20,7 +14,7 @@ export function checkThreeOfAKind(hands) {
     if (cardGroups[i].length >= 3) {
       threeOfAKind = cardGroups[i];
     }else{
-      if (lastCards.length !== 2 && cardGroups[i].length > 0){
+      if (lastCards.length < 2 && cardGroups[i].length > 0){
         lastCards.push(cardGroups[i][0]);
       }
     }

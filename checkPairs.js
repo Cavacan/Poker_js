@@ -1,16 +1,10 @@
 // const hands = ["20", "1", "17", "36", "45", "9", "25"];
 // const hands = ["20", "1", "7", "36", "16", "45", "25"];
 
-export function checkPairs(hands) {
-  const cardGroups = Array.from({ length: 13 }, () => []);
+export function checkPairs(cardGroups) {
   let pairs = null;
   let lastCards = [];
-
-  for (let i = 0; i < hands.length; i++) {
-    const cardNum = Number(hands[i]);
-    cardGroups[(cardNum - 1) % 13].push(hands[i]);
-  }
-
+  
   if(cardGroups[0].length === 2){
     pairs = cardGroups[0];
   }else if(cardGroups[0].length > 0){

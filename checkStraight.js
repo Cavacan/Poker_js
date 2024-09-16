@@ -1,12 +1,4 @@
-export function checkStraight(hands) {
-  // 13要素の配列を作成し、それぞれが空配列
-  const cardGroups = Array.from({ length: 13 }, () => []);
-
-  for (let i = 0; i < hands.length; i++) {
-    const cardNum = Number(hands[i]);
-    cardGroups[(cardNum - 1) % 13].push(hands[i]);
-  }
-
+export function checkStraight(cardGroups) {
   // 1次元目の最初の要素を抜き出して確認用配列を作成
   const firstElements = cardGroups.map(group => group.length > 0 ? group[0] : null);
 
@@ -26,9 +18,11 @@ export function checkStraight(hands) {
 
       // 5つ連続した場合は確認を終了し、昇順のインデックスを表示
       if (consecutiveCount === 5) {
+        if (firstElements[0] !== null && firstElements.slice(9,13).every(value => value !== null)){
+          return [[firstElements.slice(9,13), firstElements[0]], 10 ]
+        }      
         const ascendingStartIndex = startIndex - 4; // 昇順での最初のインデックス
-        // console.log(`5つ連続する非空要素がインデックス ${ascendingStartIndex} から ${startIndex} まで存在します。`);
-        return firstElements.slice(ascendingStartIndex, startIndex + 1).map(String);
+        return [firstElements.slice(ascendingStartIndex, startIndex + 1).map(String), ascendingStartIndex];
       }
     } else {
       // 空の要素があったらカウントをリセット
@@ -38,9 +32,5 @@ export function checkStraight(hands) {
   }
 
   // ロイヤルストレート
-  if (firstElements[0]!== null && firstElements.slice(9,13).every(value => value !== null)){
-    return [firstElements.slice(9,13),firstElements[0]]
-  }
-  // console.log("5つ連続する非空要素は存在しません。");
-  return []; // 5つ連続する要素が見つからない場合
+  return [[], -1]; // 5つ連続する要素が見つからない場合
 }

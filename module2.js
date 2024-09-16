@@ -12,7 +12,7 @@ export function displayCards(board, playerHand) {
   // プレイヤー手札の画像を表示
   handElement.innerHTML = playerHand.map(cardNumber => {
     const imgSrc = getCardImage(cardNumber);
-    return `<img src="${imgSrc}" alt="Card ${cardNumber}" class="card-imageF>`;
+    return `<img src="${imgSrc}" alt="Card ${cardNumber}" class="card-image">`;
   }).join(' ');
 }
 

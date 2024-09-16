@@ -1,13 +1,7 @@
 // const hands = ["20", "1", "17", "36", "45", "9", "25"];
 
-export function checkHighCard(hands) {
-  const cardGroups = Array.from({ length: 13 }, () => []);
+export function checkHighCard(cardGroups) {
   let highCards = [];
-
-  for (let i = 0; i < hands.length; i++) {
-    const cardNum = Number(hands[i]);
-    cardGroups[(cardNum - 1) % 13].push(hands[i]);
-  }
 
   if(cardGroups[0].length > 0){
     highCards.push(cardGroups[0][0]);
