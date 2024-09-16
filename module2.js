@@ -3,15 +3,33 @@ export function displayCards(board, playerHand) {
   const boardElement = document.getElementById('board-cards');
   const handElement = document.getElementById('hand-cards');
 
-  // カードをスートとランクで表示
-  boardElement.textContent = `ボード: ${board.map(card => card.suit + ' ' + card.rank).join(', ')}`;
-  handElement.textContent = `手札: ${playerHand.map(card => card.suit + ' ' + card.rank).join(', ')}`;
+  // ボードカードの画像を表示
+  boardElement.innerHTML = board.map(cardNumber => {
+    const imgSrc = getCardImage(cardNumber);
+    return `<img src="${imgSrc}" alt="Card ${cardNumber}" class="card-image">`;
+  }).join(' ');
+
+  // プレイヤー手札の画像を表示
+  handElement.innerHTML = playerHand.map(cardNumber => {
+    const imgSrc = getCardImage(cardNumber);
+    return `<img src="${imgSrc}" alt="Card ${cardNumber}" class="card-image">`;
+  }).join(' ');
 }
 
 // 役と構成カードを表示する関数
 export function displayResult(handRank, bestHand) {
   const resultElement = document.getElementById('hand-result-text');
 
-  // 役と、その役を構成するカードを表示
-  resultElement.textContent = `役: ${handRank}, カード: ${bestHand.map(card => card.suit + ' ' + card.rank).join(', ')}`;
+  // 役と構成カードの画像を表示
+  const cardImages = bestHand.map(cardNumber => {
+    const imgSrc = getCardImage(cardNumber);
+    return `<img src="${imgSrc}" alt="Card ${cardNumber}" class="card-image">`;
+  }).join(' ');
+
+  resultElement.innerHTML = `<strong>役: ${handRank}</strong><br>${cardImages}`;
+}
+
+// カード番号から画像ファイル名を生成（01.png ～ 52.png）
+function getCardImage(cardNumber) {
+  return `images/${String(cardNumber).padStart(2, '0')}.png`;  // ゼロパディング対応
 }

@@ -1,0 +1,41 @@
+/* 全体のスタイルを整える */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    color: #333;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* カード表示領域のスタイル */
+#board-cards, #hand-cards {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* hand-result-textのスタイルをflexからblockに変更 */
+#hand-result-text {
+    margin: 10px 0;
+    display: block; /* 改行を有効にするためblockに変更 */
+    text-align: center;
+}
+
+/* カード画像のスタイル */
+.card-image {
+    width: 80px;
+    height: auto;
+    margin: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
